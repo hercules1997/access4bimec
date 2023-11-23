@@ -1,0 +1,31 @@
+.menu {
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 300px;
+    background-color: #333;
+    transition: left 0.3s ease;
+}
+
+.menu.open {
+    left: 0;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.menu-content {
+    padding: 20px;
+    color: white;
+    z-index: 1;
+}
