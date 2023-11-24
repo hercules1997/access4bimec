@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import formatDate from "../../../utils/formatDate";
 import moment from "moment-timezone";
 import "moment/locale/pt-br";
+import emailjs from "emailjs-com";
 import {
   ButtonFinaly,
   Container,
@@ -14,11 +15,8 @@ import {
 } from "./style";
 import { useEffect } from "react";
 import api from "../../../services/api";
-// import { useNavigate } from "react-router-dom";
-// import paths from "../../../constants";
 import { toast } from "react-toastify";
 import { PopUp } from "../../../components";
-const nodemailer = require("nodemailer");
 
 export function Status() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -48,7 +46,6 @@ export function Status() {
 
   const dateEntryData = dataAmanha.format("YYYY-MM-DD");
   const timeEntryTime = dataHoraAtualBrasilia.format("HH:mm");
-  // const diaSemana = dataHoraAtualBrasilia.format("dddd");
 
   const openPopup = (idSts) => {
     setIsPopupOpen(true);
@@ -58,14 +55,14 @@ export function Status() {
   };
 
   const handleConfirm = async (idSts) => {
-    closePopup(); /// Feche o pop-up após a confirmação
+    closePopup(); 
 
     const matchingVisits = visit.filter(
       (visitItem) => visitItem.visitPeople.id === idSts.visitPeople.id
     );
 
     if (matchingVisits.length > 0) {
-      const lastVisit = matchingVisits.pop(); // Obter a última visita no array
+      const lastVisit = matchingVisits.pop(); 
 
       try {
         const updatedVisitRegisterBD = {
@@ -83,29 +80,6 @@ export function Status() {
           }
         );
 
-        const transporter = nodemailer.createTransport({
-          service: "seu-servico-de-email", // Exemplo: 'gmail'
-          auth: {
-            user: "4bimec@gmail.com",
-            pass: "1820Proto",
-          },
-        });
-
-        const mailOptions = {
-          from: "hercules.chaves.andradel@gmail.com",
-          to: lastVisit.visitPeople.email,
-          subject: "Agradecemos pela visita!",
-          text: `Olá ${lastVisit.visitPeople.name},\n\nAgradecemos pela sua visita em ${lastVisit.visitLocal} no 4° BI Mec. Esperamos vê-lo novamente em breve!\n\nAtenciosamente,\n 4° BI Mec`,
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.error("Erro ao enviar e-mail:", error);
-          } else {
-            console.log("E-mail enviado:", info.response);
-          }
-        });
-
         setTimeout(() => {
           toast.promise(api.delete(`visits-status/${idSts._id}`), {
             pending: "Deletando status no banco de dados...",
@@ -117,6 +91,31 @@ export function Status() {
             window.location.reload();
           }, 1000);
         }, 2000);
+
+        const emailData = {
+          service_id: "service_4BIMEC",
+          template_id: "template_qri9kv7",
+          user_id: "2rUdJ0t4bmYBx5BD7",
+          template_params: {
+            to_name: idSts.visitPeople.name,
+            to_email: idSts.visitPeople.email,
+            subject: "Obrigado pela sua visita!",
+            message: `Ficamos felizes por sua visita.\n\nDetalhes da visita:\nNome: ${
+              idSts.visitPeople.name
+            }\nLocal: ${idSts.visitLocal}\nData: ${formatDate(
+              idSts.dateEntry
+            )}\nHorário: ${
+              idSts.timeEntry
+            } hrs\nStatus: Visita finalizada!\nMotivo: ${idSts.reason}\n   `,
+          },
+        };
+
+        await emailjs.send(
+          emailData.service_id,
+          emailData.template_id,
+          emailData.template_params,
+          emailData.user_id
+        );
 
         // Outras lógicas, como fechar o popup ou navegar para outra página
       } catch (error) {

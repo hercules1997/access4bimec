@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { ContainerItens, CardRegister, ButtonStyle, DatePickerStyle } from "./style.js";
+import {
+  ContainerItens,
+  CardRegister,
+  ButtonStyle,
+  DatePickerStyle,
+} from "./style.js";
 import formatDate from "../../../utils/formatDate";
 import api from "../../../services/api.js";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,9 +14,9 @@ import "jspdf-autotable";
 export const GenerateReport = () => {
   const [allVisit, setAllVisit] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-  const visitsPerPage = 10;
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const visitsPerPage = 50;
 
   const loadOrders = async () => {
     try {
@@ -19,25 +24,59 @@ export const GenerateReport = () => {
 
       // Adiciona parâmetros de data se elas estiverem definidas
       if (startDate && endDate) {
-        url += `?startDate=${formatDate(startDate.toISOString())}&endDate=${endDate.toISOString()}`;
+        url += `?startDate=${encodeURIComponent(
+          formatDate(startDate.toISOString())
+        )}&endDate=${encodeURIComponent(formatDate(endDate.toISOString()))}`;
       }
 
       const { data } = await api.get(url);
-      setAllVisit(data);
+
+      // Realiza a filtragem dos dados com base nas datas
+      const filteredData = data.filter((visit) => {
+        const visitDate = new Date(visit.dateEntry);
+        return (
+          (!startDate || visitDate >= startDate) &&
+          (!endDate || visitDate <= endDate)
+        );
+      });
+
+      setAllVisit(filteredData);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
-
   const generatePDF = () => {
     const pdf = new jsPDF("landscape");
-    pdf.text("CONTROLE DE ENTRADA E SAÍDA DE VISITANTES NO 4° BI Mec", 10, 10);
-    // Adiciona as datas no cabeçalho do PDF
-    pdf.text(
-      `Serviço do dia ${formatDate(startDate)} para o dia ${formatDate(endDate)}`,
-      10,
-      20
-    );
+    // // Adiciona as datas no cabeçalho do PDF
+    // pdf.text(
+    //   `Serviço do dia ${formatDate(startDate)} para o dia ${formatDate(
+    //     endDate
+    //   )}`,
+    //   10,
+    //   20
+    // );
+    // Cabeçalho
+    const header = function (data) {
+       pdf.text("CONTROLE DE ENTRADA E SAÍDA DE VISITANTES NO 4° BI Mec\n\n", 10, 10);
+
+      pdf.text(
+        `\nServiço do dia ${formatDate(startDate)} para o dia ${formatDate(
+          endDate
+        )}`,
+        data.settings.margin.left,
+        14
+      );
+    };
+
+    // Rodapé
+    const footer = function (data) {
+      const pageCount = pdf.internal.getNumberOfPages();
+      pdf.text(
+        `Cmt Gda Sul -----------------------------------------     Of de dia    ----------------------------------------- SCmt   \n Página${data.pageNumber} de ${pageCount}`,
+        data.settings.margin.left,
+        pdf.internal.pageSize.height - 10
+      );
+    };
 
     const columns = [
       "Nome completo",
@@ -74,13 +113,21 @@ export const GenerateReport = () => {
     pdf.autoTable({
       head: [columns],
       body: rows,
+      didDrawPage: function (data) {
+        // Adiciona o cabeçalho e rodapé em todas as páginas
+        header(data);
+        footer(data);
+      },
       startY: 30,
       styles: {
         overflow: "linebreak",
+        halign: "center",
         fontSize: 10, // Tamanho da fonte
-        fillColor: [143, 144, 150], // Cor de fundo
+        fillColor: [255, 255, 255], // Cor de fundo
         textColor: [0, 0, 0], // Cor do texto
         lineWidth: 0.2, // Largura da linha },
+        fontStyle: "Time New Roman",
+        lineBorder: "deshed",
       },
     });
 
@@ -107,6 +154,7 @@ export const GenerateReport = () => {
             selectsStart
             startDate={startDate}
             endDate={endDate}
+            dateFormat="dd/MM/yyyy" // Configura o formato da data
             placeholderText="Data inicial"
           />
           <DatePickerStyle
@@ -115,6 +163,7 @@ export const GenerateReport = () => {
             selectsEnd
             startDate={startDate}
             endDate={endDate}
+            dateFormat="dd/MM/yyyy" // Configura o formato da data
             placeholderText="Data final"
           />
           <ButtonStyle onClick={loadOrders}>Buscar</ButtonStyle>
