@@ -1,8 +1,8 @@
 import axios from "axios";
+
 // Exportação da API
 const api = axios.create({
-  // baseURL: "https://controle-de-acesso-backend-production.up.railway.app/",
-   baseURL: "http://localhost:3008/",
+   baseURL: "http://10.12.112.24:3008/",
 });
 
 //Verificação do token para o usuario acessar aplicação
