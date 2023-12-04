@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Exportação da API
 const api = axios.create({
-   baseURL: "http://10.12.112.24:3008/",
+   baseURL: "https://10.12.112.24:3008" || "http://10.12.112.24:3007",
 });
 
 //Verificação do token para o usuario acessar aplicação

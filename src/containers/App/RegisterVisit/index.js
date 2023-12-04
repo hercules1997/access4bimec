@@ -92,8 +92,20 @@ const [vehicleOption, setVehicleOption] = useState(false);
     "RP",
     "Campo de Futebol",
     "PMT",
-    "Outros",
-  ];
+    "Museu",
+    "DEF",
+    "Telheiro",
+    "HOTRAN",
+    "Conpanhia",
+    "Alfaiataria",
+    "Barbearia",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "PC Cmt",
+    "PC SCmt",
+      ];
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleChange = (e) => {

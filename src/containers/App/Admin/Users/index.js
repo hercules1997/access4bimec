@@ -59,15 +59,6 @@ export function Users() {
                   <LabelList>Usuario</LabelList>
                   <p>{user.usuario}</p>
                 </Description>
-
-                <Description>
-                  <LabelList>Senha</LabelList>
-                  <p>{user.password_hash}</p>
-                </Description>
-                <Description>
-                  <LabelList>Admin</LabelList>
-                  <p>{user.admin}</p>
-                </Description>
                 <Date>
                   <LabelList>Data de registro</LabelList>
                   <p>{formatDate(user.updatedAt)}</p>

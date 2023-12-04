@@ -82,7 +82,7 @@ export const EditRegister = () => {
       navigate(paths.ListRegisters);
     }, 2000);
   };
-  const options = ["Homem", "Mulher", "Outros"];
+  const options = ["Masculino", "Feminino", "Outros"];
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleChange = (e) => {
@@ -115,7 +115,7 @@ export const EditRegister = () => {
                   RG
                 </LabelTitle>
                 <InputMask
-                  mask="99.999.999-9"
+                  mask="99.999.999-*"
                   className="Label_Format"
                   {...register("rg")}
                   defaultValue={peopleVisit.rg}

@@ -155,7 +155,7 @@ export function ListPeopleRegister() {
         <ContainerSearch>
           <FormSearch onSubmit={handleSubmit}>
             <div className="search">
-              <LabelList style={{ paddingRight: "15px" }}>Pesuisar</LabelList>
+              <LabelList style={{ paddingRight: "15px" }}>Pesquisar</LabelList>
               <InputStyle
                 placeholder="Nome, RG ou CPF"
                 type="search"
@@ -188,7 +188,7 @@ export function ListPeopleRegister() {
                   style={{ background: "green" }}
                   onClick={() => RegisterVisit(people)}
                 >
-                  <TourIcon />
+                 <TourIcon />
                 </ButtonRegisterVisit>
 
                 <ButtonRegisterVisit onClick={() => EdititRegister(people)}>

@@ -27,7 +27,7 @@ const listLinks = [
   },
   {
     id: 4,
-    label: "Deshboard",
+    label: "Dashboard",
     link: paths.Deshboard,
     icon: EqualizerIcon,
   },
