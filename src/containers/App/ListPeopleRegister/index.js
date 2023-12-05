@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import TourIcon from "@mui/icons-material/Tour";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import formatDate from "../../../utils/formatDate";
+//mport Tooltip from 'react-tooltip'
 import {
   ButtonFinaly,
   CardContainer,
@@ -202,7 +203,8 @@ export function ListPeopleRegister() {
                     style={{ background: "red" }}
                     onClick={() => DeleteRegister(people.id)}
                   >
-                    <PersonRemoveIcon />
+                    <PersonRemoveIcon  />
+              {/**  <Tooltip/>*/} 
                   </ButtonRegisterVisit>
                 )}
 

@@ -22,9 +22,10 @@ export const NewUsers = () => {
   const [optionValue, setOptionValue] = useState(false);
 
   const schema = Yup.object().shape({
-    usuario: Yup.string().required(),
-    password: Yup.string().required(),
-    admin: Yup.bool().required(),
+    name: Yup.string().required("Nome é obrigatório"),
+    usuario: Yup.string().required("usuário é obrigatório"),
+    password: Yup.string().required("Senha é obrigatória"),
+    admin: Yup.bool().required("Campo obrigatório"),
   });
   const {
     register,
@@ -35,6 +36,7 @@ export const NewUsers = () => {
   const onSubmit = async (data) => {
     try {
       const user = {
+        name: data.name,
         usuario: data.usuario,
         password: data.password,
         admin: data.admin,
@@ -52,8 +54,6 @@ export const NewUsers = () => {
       navigate(paths.Users);
     }, 2000);
   };
-  // const [selectedOption, setSelectedOption] = useState("");
-  // const options = ["Sim", "Não"];
 
   const handleChange = (e) => {
     const selectedValue = e.target.value;
@@ -65,6 +65,15 @@ export const NewUsers = () => {
       <CardRegister>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Novo usuário</h2>
+          <Cardform>
+              <LabelList>Digíte nome completoo</LabelList>
+              <input
+                type="text"
+                {...register("name")}
+                placeholder="João da Silva"
+                error={errors.name?.message}
+              />
+            </Cardform>
    
             <Cardform>
               <LabelList>Digíte um nome para usuário</LabelList>

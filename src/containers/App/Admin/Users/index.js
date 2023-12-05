@@ -1,5 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from "react";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import EditIcon from "@mui/icons-material/Edit";
+
+
 import {
   Container,
   ContainerList,
@@ -55,6 +59,10 @@ export function Users() {
           users.map((user) => (
             <ContainerList key={user.id}>
               <List>
+              <Description>
+                  <LabelList>Nome</LabelList>
+                  <p>{user.name}</p>
+                </Description>
                 <Description>
                   <LabelList>Usuario</LabelList>
                   <p>{user.usuario}</p>
@@ -68,13 +76,13 @@ export function Users() {
                   style={{ background: "orange" }}
                   onClick={() => EditUser(user)}
                 >
-                  Editar Pessoa
+                  <EditIcon />
                 </ButtonRegisterVisit>
                 <ButtonRegisterVisit
                   style={{ background: "red" }}
                   onClick={() => DeleteUser(user.id)}
                 >
-                  Deletar Pessoa
+                 <PersonRemoveIcon/>
                 </ButtonRegisterVisit>
               </List>
             </ContainerList>
