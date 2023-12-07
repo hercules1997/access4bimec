@@ -5,6 +5,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import TourIcon from "@mui/icons-material/Tour";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import formatDate from "../../../utils/formatDate";
+import Tooltip from '@mui/material/Tooltip'
+
 import {
   ButtonFinaly,
   CardContainer,
@@ -22,6 +24,7 @@ import {
   ContainerSearch,
   FormSearch,
   ButtonRegisterVisit,
+
 } from "./style";
 import api from "../../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -74,7 +77,7 @@ export function ListPeopleRegister() {
     loadOrders();
   }, []);
 
-  
+
 
   function handleSearch(e) {
     const searchTerm = e.target.value;
@@ -149,13 +152,16 @@ export function ListPeopleRegister() {
       }, 500);
     }
   }
+
+
+
   return (
     <>
       <Container>
         <ContainerSearch>
           <FormSearch onSubmit={handleSubmit}>
             <div className="search">
-              <LabelList style={{ paddingRight: "15px" }}>Pesuisar</LabelList>
+              <LabelList style={{ paddingRight: "15px" }}>Pesquisar</LabelList>
               <InputStyle
                 placeholder="Nome, RG ou CPF"
                 type="search"
@@ -187,12 +193,18 @@ export function ListPeopleRegister() {
                 <ButtonRegisterVisit
                   style={{ background: "green" }}
                   onClick={() => RegisterVisit(people)}
-                >
-                  <TourIcon />
+                ><Tooltip title={"Registrar visita"} arrow >
+
+                    <TourIcon />
+                  </Tooltip>
+                  {/*ÍCONE DO BOTÃO DE REGISTRAR VISITAS*/}
                 </ButtonRegisterVisit>
 
                 <ButtonRegisterVisit onClick={() => EdititRegister(people)}>
-                  <EditIcon />
+                  <Tooltip title={"Editar pessoa"} arrow >
+                    <EditIcon />
+                  </Tooltip>
+
                 </ButtonRegisterVisit>
 
                 {!userData.admin ? (
@@ -203,6 +215,7 @@ export function ListPeopleRegister() {
                     onClick={() => DeleteRegister(people.id)}
                   >
                     <PersonRemoveIcon />
+                    {/**  <Tooltip/>*/}
                   </ButtonRegisterVisit>
                 )}
 
@@ -290,14 +303,14 @@ export function ListPeopleRegister() {
                       {visitor &&
                         visitor.map((reg) =>
                           people.id === reg.visitPeople.id &&
-                          (dateSearchTerm
-                            ? formatDate(reg.dateEntry).includes(
+                            (dateSearchTerm
+                              ? formatDate(reg.dateEntry).includes(
                                 dateSearchTerm
                               ) ||
                               formatDate(reg.departureDate).includes(
                                 dateSearchTerm
                               )
-                            : true) ? (
+                              : true) ? (
                             <ul key={reg._id}>
                               <li>
                                 <div className="div">

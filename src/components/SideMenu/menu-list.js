@@ -12,6 +12,7 @@ const listLinks = [
     label: "Novo Cadastro",
     link: paths.Cadastro,
     icon: GroupAddIcon,
+    s2: false
   },
   {
     id: 2,
@@ -27,9 +28,10 @@ const listLinks = [
   },
   {
     id: 4,
-    label: "Deshboard",
+    label: "Dashboard",
     link: paths.Deshboard,
     icon: EqualizerIcon,
+   
   },
   {
     id: 5,
@@ -44,6 +46,7 @@ const listLinks = [
     link: paths.CreateUsers,
     icon: PersonAddIcon,
     adminOnly: true,
+    s2: false
   },
   {
     id: 7,
@@ -51,6 +54,7 @@ const listLinks = [
     icon: GroupIcon,
     link: paths.Users,
     adminOnly: true,
+    s2: false
   },
 ];
 

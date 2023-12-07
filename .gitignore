@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# chaves
+chave-privada.pem
+csr.pem
+certificado.pem

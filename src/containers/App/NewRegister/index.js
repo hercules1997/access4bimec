@@ -150,7 +150,7 @@ export function NewRegister() {
     }, 2000);
   };
 
-  const options = ["Homem", "Mulher", "Outros"];
+  const options = ["Masculino", "Feminino", "Outros"];
   const [selectedOption, setSelectedOption] = useState("");
   const handleChange = (e) => {
     setSelectedOption(e.target.value);
@@ -162,7 +162,7 @@ export function NewRegister() {
           <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <h2>Cadastro de Visitante</h2>
             <LabelTitle>
-              Nome completo <span> *</span>
+              Nome Completo <span> *</span>
             </LabelTitle>
             <input
               type="text"
@@ -177,10 +177,10 @@ export function NewRegister() {
                   RG <span>*</span>
                 </LabelTitle>
                 <InputMask
-                  mask="99.999.999-9"
+                  mask={"99.999.999-*" || "99.999.999-a" }
                   className="Label_Format"
                   {...register("rg")}
-                  placeholder="Ex: 24787158-8"
+                  placeholder="Ex: 99.999.999-9"
                   error={errors.rg?.message}
                   required
                 ></InputMask>
@@ -191,7 +191,7 @@ export function NewRegister() {
                   CPF <span>*</span>
                 </LabelTitle>
                 <InputMask
-                  mask="999.999.999-99"
+                  mask="999.999.999-99" 
                   placeholder="Ex: 455.555.555-77"
                   {...register("cpf")}
                   error={errors.cpf?.message}

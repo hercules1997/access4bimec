@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Button } from "../../../components";
 import { colors } from "../../../styles/globalStyles";
-
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -17,6 +16,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 80px 40px;
+
+
 `;
 export const InputStyle = styled.input`
   width: 90%;
@@ -39,6 +40,9 @@ export const ButtonStyle = styled(Button)`
   background: transparent;
   height: 35px;
 `;
+
+
+
 export const ButtonRegisterVisit = styled(Button)`
  
   border: none;
@@ -55,6 +59,9 @@ export const ButtonRegisterVisit = styled(Button)`
   &:hover {
     opacity: 1;
   }
+
+
+
 `;
 
 export const ContainerList = styled.div`

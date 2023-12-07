@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Background } from "../../../components/Background";
 import { Button } from "../../../components";
 import { colors } from "../../../styles/globalStyles";
-
+import backgrounLogin from '../../../assets/backgroundLogin.png'
 export const All = styled.div`
   display: flex;
   padding: 10px 40px;
@@ -10,7 +10,7 @@ export const All = styled.div`
   justify-content: center;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #000;
+  background-image: url("${backgrounLogin}");
 
   span {
     color: #ffff;
