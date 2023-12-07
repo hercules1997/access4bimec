@@ -26,7 +26,7 @@ export function SideMenu({ path, menuOpen }) {
       <hr></hr>
       {listLinks.map(
         (item) =>
-          (userData.admin || !item.adminOnly) && (
+          (userData.admin && userData.s2 || !item.adminOnly  && !item.s2 ) && (
             <ContainerItems key={item.id}>
               <ListLink to={item.link} isActive={path === item.link}>
                 {item.label}

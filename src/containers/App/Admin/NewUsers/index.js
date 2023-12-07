@@ -20,12 +20,14 @@ export const NewUsers = () => {
   const location = useNavigate();
 
   const [optionValue, setOptionValue] = useState(false);
+  const [optionValue2, setOptionValue2] = useState(false);
 
   const schema = Yup.object().shape({
     name: Yup.string().required("Nome é obrigatório"),
     usuario: Yup.string().required("usuário é obrigatório"),
     password: Yup.string().required("Senha é obrigatória"),
     admin: Yup.bool().required("Campo obrigatório"),
+    s2: Yup.bool(),
   });
   const {
     register,
@@ -40,6 +42,7 @@ export const NewUsers = () => {
         usuario: data.usuario,
         password: data.password,
         admin: data.admin,
+        s2: data.s2,
       };
       await toast.promise(api.post("users", user), {
         pending: "Registrando usuário no banco de dados...",
@@ -60,6 +63,10 @@ export const NewUsers = () => {
     setOptionValue(selectedValue);
   };
 
+  const handleChanges2 = (e) => {
+    const selectedValue2 = e.target.value;
+    setOptionValue2(selectedValue2);
+  };
   return (
     <ContainerItens>
       <CardRegister>
@@ -121,6 +128,37 @@ export const NewUsers = () => {
                     error={errors.admin?.message}
                   />
                   <ErrorMessage>{errors.admin?.message}</ErrorMessage>
+                </div>
+              </span>
+            </Cardform>
+          </Divisor>
+          <Divisor style={{ display: "flex" }}>
+            <Cardform style={{ display: "flex" }}>
+              <LabelList>s2?</LabelList>
+              <span style={{ display: "flex", gap: "8px" }}>
+                <div className="optionRadio">
+                  <LabelTitle>Sim</LabelTitle>
+                  <input
+                    type="radio"
+                    value="true"
+                    {...register("s2")}
+                    checked={optionValue2 === "true"}
+                    onChange={handleChanges2}
+                    error={errors.s2?.message}
+                  />
+                </div>
+
+                <div className="optionRadio">
+                  <LabelTitle>Não</LabelTitle>
+                  <input
+                    type="radio"
+                    value="false"
+                    {...register("s2")}
+                    checked={optionValue2 === "false"}
+                    onChange={handleChanges2}
+                    error={errors.s2?.message}
+                  />
+                  <ErrorMessage>{errors.s2?.message}</ErrorMessage>
                 </div>
               </span>
             </Cardform>
