@@ -19,18 +19,21 @@ const listLinks = [
     label: "Pessoas Cadastradas",
     link: paths.ListRegisters,
     icon: RecentActorsIcon,
+
   },
   {
     id: 3,
     label: "Status de visitas",
     link: paths.Status,
     icon: HourglassBottomIcon,
+  
   },
   {
     id: 4,
     label: "Dashboard",
     link: paths.Deshboard,
     icon: EqualizerIcon,
+
    
   },
   {
@@ -38,7 +41,8 @@ const listLinks = [
     label: "Gerar Relatório",
     link: paths.GenerateReport,
     icon: DescriptionIcon,
-    adminOnly: true,
+  
+    
   },
   {
     id: 6,

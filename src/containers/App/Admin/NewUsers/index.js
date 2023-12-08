@@ -24,10 +24,35 @@ export const NewUsers = () => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required("Nome é obrigatório"),
-    usuario: Yup.string().required("usuário é obrigatório"),
-    password: Yup.string().required("Senha é obrigatória"),
+    usuario: Yup.string()
+      .required("Usuário é obrigatório")
+      .test("check-usuario", "Usuário já existe", async function (value) {
+        if (!value) {
+          return true; // Não faz a verificação se o campo está vazio
+        }
+
+        try {
+          // Faz a chamada para verificar se o usuário já existe
+          const { data } = await api.get(`/users`);
+          const allusers = data;
+
+          // Verifica se algum usuário já possui o mesmo nome de usuário
+          const userExists = allusers.some((user) => user.usuario === value);
+
+          return !userExists;
+        } catch (error) {
+          console.error("Erro ao verificar a existência do usuário:", error);
+          return false;
+        }
+      }),
+    password: Yup.string()
+      .required("Senha é obrigatória")
+      .min(6, "Senha deve conter no mínimo 6 caracteres"),
+    confirmPassword: Yup.string()
+      .required("Comfime sua senha")
+      .oneOf([Yup.ref("password")], "Senha diferente"),
     admin: Yup.bool().required("Campo obrigatório"),
-    s2: Yup.bool(),
+    s2: Yup.bool().required("Campo obrigatório"),
   });
   const {
     register,
@@ -50,7 +75,10 @@ export const NewUsers = () => {
         error: "Falha ao registrar, por favor tente novamente!",
       });
     } catch (error) {
-      console.error("Algum dado na validação não esta sendo passada", error);
+      console.error(
+        "Algum dado na validação não esta sendo passada corretamente",
+        error
+      );
     }
 
     setTimeout(() => {
@@ -73,34 +101,46 @@ export const NewUsers = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Novo usuário</h2>
           <Cardform>
-              <LabelList>Digíte nome completoo</LabelList>
-              <input
-                type="text"
-                {...register("name")}
-                placeholder="João da Silva"
-                error={errors.name?.message}
-              />
-            </Cardform>
-   
-            <Cardform>
-              <LabelList>Digíte um nome para usuário</LabelList>
-              <input
-                type="text"
-                {...register("usuario")}
-                placeholder="comandante"
-                error={errors.usuario?.message}
-              />
-            </Cardform>
-     
-            <Cardform>
-              <LabelList>Digite uma senha</LabelList>
-              <input
-                type="password"
-                {...register("password")}
-                placeholder="aaa111"
-                error={errors.password?.message}
-              />
-            </Cardform>
+            <LabelList>Digíte Nome Completo</LabelList>
+            <input
+              type="text"
+              {...register("name")}
+              placeholder="Ex: João da Silva"
+              error={errors.name?.message}
+            />
+          </Cardform>
+
+          <Cardform>
+            <LabelList>Digíte um nome para usuário</LabelList>
+            <input
+              type="text"
+              {...register("usuario")}
+              placeholder="Ex: comandante"
+              error={errors.usuario?.message}
+            />
+            <ErrorMessage>{errors.usuario?.message}</ErrorMessage>
+          </Cardform>
+
+          <Cardform>
+            <LabelList>Digite uma senha</LabelList>
+            <input
+              type="password"
+              {...register("password")}
+              placeholder="Ex: Joao111"
+              error={errors.password?.message}
+            />
+            <ErrorMessage>{errors.password?.message}</ErrorMessage>
+          </Cardform>
+          <Cardform>
+            <LabelList>Confirmar a senha</LabelList>
+            <input
+              type="password"
+              {...register("confirmPassword")}
+              placeholder="Ex: Joao111"
+              error={errors.confirmPassword?.message}
+            />
+            <ErrorMessage>{errors.confirmPassword?.message}</ErrorMessage>
+          </Cardform>
           <Divisor style={{ display: "flex" }}>
             <Cardform style={{ display: "flex" }}>
               <LabelList>Administrador?</LabelList>

@@ -24,17 +24,46 @@ export function SideMenu({ path, menuOpen }) {
       <Logo />
 
       <hr></hr>
-      {listLinks.map(
-        (item) =>
-          (userData.admin && userData.s2 || !item.adminOnly  && !item.s2 ) && (
-            <ContainerItems key={item.id}>
-              <ListLink to={item.link} isActive={path === item.link}>
-                {item.label}
-                <item.icon className="icon" to={item.link} />
-              </ListLink>
-            </ContainerItems>
-          )
-      )}
+
+{/* CONDICIONAIS PARA VERIFICAÇÃO DOS PERFIS DE USUÁRIOS. SE É DO PERFIL S2 OU SE É ADMIN OU USUÁRIO NORMAL */}
+{listLinks.map(item => {
+  const isAdmin = userData.admin;
+  const isS2 = userData.s2;
+
+  if (
+    (!item.adminOnly || isAdmin) &&
+    (item.id !== 1 || !isS2 || (isAdmin && item.id === 1))
+  ) {
+    return (
+      <ContainerItems key={item.id}>
+        <ListLink to={item.link} isActive={path === item.link}>
+          {item.label}
+          <item.icon className="icon" to={item.link} />
+        </ListLink>
+      </ContainerItems>
+    );
+  }
+
+  return null;
+})}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <hr></hr>
       <ContainerLogout
         onClick={() => {
