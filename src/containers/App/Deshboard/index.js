@@ -181,25 +181,25 @@ export function Deshboard() {
     const imgData3 = canvas3.toDataURL("image/png");
     const imgData4 = canvas4.toDataURL("image/png");
 
-    const imgWidth1 = 210; // Largura da imagem no PDF
+    const imgWidth1 = 300; // Largura da imagem no PDF
     const imgHeight1 = (canvas1.height * imgWidth1) / canvas1.width; // Calcular altura proporcional
     const x1 = (pdf1.internal.pageSize.getWidth() - imgWidth1) / 2; // Centralizar na largura do PDF
     const y1 = (pdf1.internal.pageSize.getHeight() - imgHeight1) / 2; // Centralizar na altura do PDF
     pdf1.addImage(imgData1, "JPEG", x1, y1, imgWidth1, imgHeight1);
 
-    const imgWidth2 = 210; // Largura da imagem no PDF
+    const imgWidth2 = 300; // Largura da imagem no PDF
     const imgHeight2 = (canvas2.height * imgWidth2) / canvas2.width; // Calcular altura proporcional
     const x2 = (pdf2.internal.pageSize.getWidth() - imgWidth2) / 2; // Centralizar na largura do PDF
     const y2 = (pdf2.internal.pageSize.getHeight() - imgHeight2) / 2; // Centralizar na altura do PDF
     pdf2.addImage(imgData2, "JPEG", x2, y2, imgWidth2, imgHeight2);
 
-    const imgWidth3 = 210; // Largura da imagem no PDF
+    const imgWidth3 = 300; // Largura da imagem no PDF
     const imgHeight3 = (canvas3.height * imgWidth3) / canvas3.width; // Calcular altura proporcional
     const x3 = (pdf3.internal.pageSize.getWidth() - imgWidth3) / 2; // Centralizar na largura do PDF
     const y3 = (pdf3.internal.pageSize.getHeight() - imgHeight3) / 2; // Centralizar na altura do PDF
     pdf3.addImage(imgData3, "JPEG", x3, y3, imgWidth3, imgHeight3);
 
-    const imgWidth4 = 210; // Largura da imagem no PDF
+    const imgWidth4 = 300; // Largura da imagem no PDF
     const imgHeight4 = (canvas4.height * imgWidth4) / canvas4.width; // Calcular altura proporcional
     const x4 = (pdf4.internal.pageSize.getWidth() - imgWidth4) / 2; // Centralizar na largura do PDF
     const y4 = (pdf4.internal.pageSize.getHeight() - imgHeight4) / 2; // Centralizar na altura do PDF
