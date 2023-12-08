@@ -72,7 +72,7 @@ export const GenerateReport = () => {
     const footer = function (data) {
       const pageCount = pdf.internal.getNumberOfPages();
       pdf.text(
-        `Cmt Gda Sul -----------------------------------------     Of de dia    ----------------------------------------- SCmt   \n Página${data.pageNumber} de ${pageCount}`,
+        `Cmt Gda Sul ________________________     Of de dia   _____________________   SCmt ____________  \n Página${data.pageNumber} de ${pageCount}`,
         data.settings.margin.left,
         pdf.internal.pageSize.height - 10
       );
@@ -147,6 +147,10 @@ export const GenerateReport = () => {
           </p>
         </span>
         <div className="container-filter">
+  
+
+
+
           <label>Selecione o período:</label>
           <DatePickerStyle
             selected={startDate}
@@ -156,6 +160,7 @@ export const GenerateReport = () => {
             endDate={endDate}
             dateFormat="dd/MM/yyyy" // Configura o formato da data
             placeholderText="Data inicial"
+            required
           />
           <DatePickerStyle
             selected={endDate}
@@ -165,8 +170,10 @@ export const GenerateReport = () => {
             endDate={endDate}
             dateFormat="dd/MM/yyyy" // Configura o formato da data
             placeholderText="Data final"
+            required
           />
-          <ButtonStyle onClick={loadOrders}>Buscar</ButtonStyle>
+          <ButtonStyle type="submit" onClick={loadOrders}>Buscar</ButtonStyle>
+       
         </div>
         <table border="1" style={{ borderCollapse: "collapse", width: "100%" }}>
           <thead>
