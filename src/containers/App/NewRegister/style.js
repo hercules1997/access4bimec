@@ -171,7 +171,7 @@ export const LabelUpload = styled.label`
   display: flex;
   align-items: center;
   border: ${(props) => (props.error ? "2px solid #FF0000" : "dashed 1px gray")};
-  color: #232323;
+  color: gray;
   padding: 8px;
   width: 100%;
   gap: 3px;

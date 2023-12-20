@@ -6,6 +6,10 @@ import TourIcon from "@mui/icons-material/Tour";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import formatDate from "../../../utils/formatDate";
 import Tooltip from '@mui/material/Tooltip'
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 import {
   ButtonFinaly,
@@ -42,6 +46,7 @@ export function ListPeopleRegister() {
   const [dateSearchTerm, setDateSearchTerm] = useState("");
   const [visitor, setVisitor] = useState();
   const [statusVisit, setStatusVisit] = useState();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const { userData } = useUser();
   const location = useNavigate();
@@ -153,7 +158,13 @@ export function ListPeopleRegister() {
     }
   }
 
+  const openImageDialog = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
 
+  const closeImageDialog = () => {
+    setSelectedImage(null);
+  };
 
   return (
     <>
@@ -174,9 +185,9 @@ export function ListPeopleRegister() {
           searchResults.map((people) => (
             <ContainerList key={people.id}>
               <List>
-                <Image>
-                  <img src={people.url} />
-                </Image>
+              <Image onClick={() => openImageDialog(people.url)}>
+                <img src={people.url} alt={people.name} />
+              </Image>
                 <Description>
                   <LabelList>NOME</LabelList>
                   <p>{people.name}</p>
@@ -349,6 +360,12 @@ export function ListPeopleRegister() {
             </ContainerList>
           ))}
       </Container>
+       <Dialog open={!!selectedImage} onClose={closeImageDialog}>
+        <DialogTitle>Image Viewer</DialogTitle>
+        <DialogContent>
+          <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
