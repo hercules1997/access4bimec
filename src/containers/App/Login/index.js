@@ -53,11 +53,12 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-
+  
   /*
-   CHAMADA A API E REALIZA O ACESSO
-   */
-  const onSubmit = async (clientData) => {
+  CHAMADA A API E REALIZA O ACESSO
+  */
+ const onSubmit = async (clientData) => {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
     try {
       const { data } = await toast.promise(
         api.post("sessions", {
