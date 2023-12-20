@@ -29,8 +29,6 @@ export function NewRegister() {
   const [cepData, setCepData] = useState(null);
   const [logradouro, setLogradouro] = useState("");
   const [visit, setVisit] = useState();
-  const [imagePreview, setImagePreview] = useState(null);
-
 
   const navigate = useNavigate();
 
@@ -179,7 +177,7 @@ export function NewRegister() {
                   RG <span>*</span>
                 </LabelTitle>
                 <InputMask
-                  mask={"99.999.999-*" || "99.999.999-a"}
+                  mask={"99.999.999-*" || "99.999.999-a" }
                   className="Label_Format"
                   {...register("rg")}
                   placeholder="Ex: 99.999.999-9"
@@ -193,7 +191,7 @@ export function NewRegister() {
                   CPF <span>*</span>
                 </LabelTitle>
                 <InputMask
-                  mask="999.999.999-99"
+                  mask="999.999.999-99" 
                   placeholder="Ex: 455.555.555-77"
                   {...register("cpf")}
                   error={errors.cpf?.message}
@@ -241,7 +239,7 @@ export function NewRegister() {
                   error={errors.gener?.message}
                   required
                 >
-                  <option value="" hidden >Selecione...</option>
+                  <option value=""  hidden >Selecione...</option>
                   {options.map((opcao, index) => (
                     <option key={index} value={opcao}>
                       {opcao}
@@ -350,9 +348,7 @@ export function NewRegister() {
             <div>
               <LabelTitle>
                 <LabelUpload>
-                  {fileName && imagePreview ? (
-                    <img src={imagePreview} alt="Imagem" style={{ maxWidth: '50%', maxHeight: '40%' }} />
-                  ) : (
+                  {fileName || (
                     <>
                       <span />
                       Carregar imagem
@@ -363,21 +359,8 @@ export function NewRegister() {
                     id="image-input"
                     accept="image/png, image/jpeg"
                     {...register("file")}
-                    onChange={async (value) => {
+                    onChange={(value) => {
                       setFileName(value.target.files[0]?.name);
-
-                      const file = value.target.files[0];
-
-                      // Ler a imagem e converter para uma URL de dados (data URL)
-                      const reader = new FileReader();
-
-                      reader.onloadend = () => {
-                        setImagePreview(reader.result);
-                      };
-
-                      if (file) {
-                        reader.readAsDataURL(file);
-                      }
                     }}
                     error={errors.file?.message}
                   />
