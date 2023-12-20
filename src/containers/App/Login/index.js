@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { ErrorMessage } from "../../../components";
 import paths from "../../../constants";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import {
   ContainerBlock,
   ContainerItens,
@@ -27,10 +26,8 @@ ESTRUTURA DE LOGIN
 export function Login() {
   const { putUserData } = useUser();
   const navigate = useNavigate();
-  //estado para rastrear se o Caps Lock está ligado
+  // Adicione um estado para rastrear se o Caps Lock está ligado
   const [capsLockWarning, setCapsLockWarning] = useState(false);
-  // estado para visualizar senha
-  const [showPassword, setShowPassword] = useState(false);
   const currentYear = new Date().getFullYear();
   // Função para lidar com a tecla pressionada
   const handleKeyPress = (e) => {
@@ -53,12 +50,11 @@ export function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  
+
   /*
-  CHAMADA A API E REALIZA O ACESSO
-  */
- const onSubmit = async (clientData) => {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+   CHAMADA A API E REALIZA O ACESSO
+   */
+  const onSubmit = async (clientData) => {
     try {
       const { data } = await toast.promise(
         api.post("sessions", {
@@ -80,11 +76,6 @@ export function Login() {
       console.error("Usuário não existe", error);
     }
   };
-  // Função para alternar a visibilidade da senha
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
 
   return (
     <All>
@@ -112,32 +103,14 @@ export function Login() {
                 <div>
                   {/* SENHA */}
                   <Label>Senha</Label>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      {...register("password")}
-                      error={errors.password?.message}
-                      required
-                      // evento onKeyPress para verificar o Caps Lock
-                      onKeyPress={handleKeyPress}
-                    />
-                    {/* Botão com ícone para alternar a visibilidade da senha */}
-                    <button
-                      type="button"
-                      onClick={togglePasswordVisibility}
-                      style={{
-                        position: "absolute",
-                        right: "10px",
-                        top: "50%",
-                        color: '#fff',
-                        transform: "translateY(-50%)",
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      {showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </button>
-              
+                  <input
+                    type="password"
+                    {...register("password")}
+                    error={errors.password?.message}
+                    required
+                    // Adicione o evento onKeyPress para verificar o Caps Lock
+                    onKeyPress={handleKeyPress}
+                  />
                 </div>
                 {/* Exiba o aviso se o Caps Lock estiver ligado */}
                 {capsLockWarning && (
