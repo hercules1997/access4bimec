@@ -156,6 +156,10 @@ export function Status() {
                 <p>{`${mapVisit.timeEntry} hrs`}</p>
               </DateStyle>
               <DateStyle>
+                <p className="title">N° Crachá</p>
+                <p className="status">{mapVisit.badge}</p>
+              </DateStyle>
+              <DateStyle>
                 <p className="title">Status</p>
                 <p className="status">{mapVisit.status}</p>
               </DateStyle>
