@@ -16,7 +16,7 @@ import { ErrorMessage } from "../../../components/index.js";
 
 export const RegisterVisit = () => {
   const [showVehicleFields, setShowVehicleFields] = useState(false);
-const [vehicleOption, setVehicleOption] = useState(false);
+  const [vehicleOption, setVehicleOption] = useState(false);
   const navigate = useNavigate();
   const {
     state: { peopleVisit },
@@ -65,7 +65,7 @@ const [vehicleOption, setVehicleOption] = useState(false);
         departureTime: "",
         dayOfTheWeek: diaSemana,
       };
-
+      console.log(data.plate)
       await toast.promise(
         api.post(`visits-registers/${peopleVisit.id}`, visitRegisterBD),
         {
@@ -105,14 +105,14 @@ const [vehicleOption, setVehicleOption] = useState(false);
     "S4",
     "PC Cmt",
     "PC SCmt",
-      ];
+  ];
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleChange = (e) => {
-    const selectedValue = e.target.value ;
+    const selectedValue = e.target.value;
     setSelectedOption(selectedValue);
   };
-  
+
   const handleVehicle = (e) => {
     setVehicleOption(e.target.value)
     setShowVehicleFields(e.target.value === "true");
@@ -193,8 +193,12 @@ const [vehicleOption, setVehicleOption] = useState(false);
                     placeholder="DFR-3A44"
                     error={errors.plate?.message}
                   />
+                  <ErrorMessage>{errors.plate?.message}</ErrorMessage>
                 </Cardform>
-                <Cardform>
+                {/*
+            // TODO CRIAR UMA FUNCIONALIDADE DE CONDIÇÃO PARA REGISTRAR VIATURAS E REGISTRAR TAMBEM NOME DO MOTORISTA E OM (NÃO ESQUECER DE CRIA AS FUNCIONALIDADES NO BACKEND E CADATRO NO BANCO DE DADOS)
+
+               <Cardform>
                   <LabelTitle>N° EB (Se for viatura)</LabelTitle>
                   <InputMask
                     mask={"99999999"}
@@ -202,7 +206,7 @@ const [vehicleOption, setVehicleOption] = useState(false);
                     placeholder="000002547"
                     error={errors.plate?.message}
                   />
-                </Cardform>
+                </Cardform>*/}
                 <Cardform>
                   <LabelTitle>Marca</LabelTitle>
                   <input
