@@ -143,19 +143,23 @@ export function ListPeopleRegister() {
     const matchingStatus = statusVisit.find(
       (visitItem) => visitItem.visitPeople.id === id.id
     );
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Tem certeza que desja exluir pessoa?') === true) {
 
-    if (matchingStatus) {
-      toast.error("Não é possível deletar pessoa, há visita em andamento.");
-    } else {
-      await toast.promise(api.delete(`visits/${id}`), {
-        success: "Pessoa deletada com sucesso!",
-        error: "Falha ao Deletar pessoa",
-        pending: "Deletando pessoa no banco de dados",
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      if (matchingStatus) {
+        toast.error("Não é possível deletar pessoa, há visita em andamento.");
+      } else {
+        await toast.promise(api.delete(`visits/${id}`), {
+          success: "Pessoa deletada com sucesso!",
+          error: "Falha ao Deletar pessoa",
+          pending: "Deletando pessoa no banco de dados",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
     }
+
   }
 
   const openImageDialog = (imageUrl) => {
@@ -185,9 +189,9 @@ export function ListPeopleRegister() {
           searchResults.map((people) => (
             <ContainerList key={people.id}>
               <List>
-              <Image onClick={() => openImageDialog(people.url)}>
-                <img src={people.url} alt={people.name} />
-              </Image>
+                <Image onClick={() => openImageDialog(people.url)}>
+                  <img src={people.url} alt={people.name} />
+                </Image>
                 <Description>
                   <LabelList>NOME</LabelList>
                   <p>{people.name}</p>
@@ -360,9 +364,9 @@ export function ListPeopleRegister() {
             </ContainerList>
           ))}
       </Container>
-       <Dialog open={!!selectedImage} onClose={closeImageDialog}>
-        <DialogTitle>Image Viewer</DialogTitle>
-        <DialogContent>
+      <Dialog style={{ backgroundColor: '#4040405e' }} open={!!selectedImage} onClose={closeImageDialog}>
+        <DialogTitle style={{ backgroundColor: '#262626' }} >Image Viewer</DialogTitle>
+        <DialogContent style={{ backgroundColor: '#262626' }} >
           <img src={selectedImage} alt="Selected" style={{ width: '100%' }} />
         </DialogContent>
       </Dialog>

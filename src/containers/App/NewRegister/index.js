@@ -67,7 +67,7 @@ export function NewRegister() {
     rg: Yup.string().required("RG é obrigtório"),
     cpf: Yup.string().required("CPF é obrigtório"),
     phone: Yup.string().required("Telefone é obrigtório"),
-    email: Yup.string().email().required("E-mail é obrigtório"),
+    email: Yup.string().email("E-mail no formato errado").required("E-mail é obrigtório"),
     gener: Yup.string().required("Gênero é obrigtório"),
     birth: Yup.string().required("Data de nascimento é obrigtório"),
     address: Yup.string().required("Endereço é obrigtório"),
@@ -139,8 +139,8 @@ export function NewRegister() {
       visitFormData.append("file", data.file[0]);
 
       await toast.promise(api.post("visits", visitFormData), {
-        pending: "Registrando Serviço...",
-        success: "Serviço registrado com sucesso!",
+        pending: "Registrando Visitante...",
+        success: "Visitante registrado com sucesso!",
         error: "Falha ao registrar, por favor tente novamente!",
       });
     } catch (error) {

@@ -27,10 +27,10 @@ export const RegisterVisit = () => {
     visitLocal: Yup.string().required("Local da visita é obrigatório"),
     reason: Yup.string().required("Motivo da visita é obrigatório"),
     vehicle: Yup.bool().required("Opção obrigatória"),
-    plate: Yup.string().required(),
+    plate: Yup.string().uppercase("Letras tem que ser maiúsculas"),
     brand: Yup.string(),
     model: Yup.string(),
-    color: Yup.string(),
+    color: Yup.string().uppercase("Letras tem que ser maiúsculas"),
     badge: Yup.string().required("N° do crachá é obrigatório"),
   });
   const {
@@ -65,7 +65,7 @@ export const RegisterVisit = () => {
         departureTime: "",
         dayOfTheWeek: diaSemana,
       };
-      console.log(data.plate)
+
       await toast.promise(
         api.post(`visits-registers/${peopleVisit.id}`, visitRegisterBD),
         {
