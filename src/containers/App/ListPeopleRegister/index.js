@@ -144,7 +144,7 @@ export function ListPeopleRegister() {
       (visitItem) => visitItem.visitPeople.id === id.id
     );
     // eslint-disable-next-line no-restricted-globals
-    if (confirm('Tem certeza que desja exluir pessoa?') === true) {
+    if (confirm('Tem certeza que deseja exluir pessoa?') === true) {
 
       if (matchingStatus) {
         toast.error("Não é possível deletar pessoa, há visita em andamento.");
