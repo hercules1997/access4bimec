@@ -27,7 +27,7 @@ const [vehicleOption, setVehicleOption] = useState(false);
     visitLocal: Yup.string().required("Local da visita é obrigatório"),
     reason: Yup.string().required("Motivo da visita é obrigatório"),
     vehicle: Yup.bool().required("Opção obrigatória"),
-    plate: Yup.string().required(),
+    plate: Yup.string(),
     brand: Yup.string(),
     model: Yup.string(),
     color: Yup.string(),
