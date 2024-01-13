@@ -67,7 +67,6 @@ export const ContainerItens = styled.div`
 
   div {
     display: flex;
-    position: relative;
     justify-content: center;
     align-items: center;
   }

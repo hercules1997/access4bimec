@@ -27,7 +27,11 @@ export const RegisterVisit = () => {
     visitLocal: Yup.string().required("Local da visita é obrigatório"),
     reason: Yup.string().required("Motivo da visita é obrigatório"),
     vehicle: Yup.bool().required("Opção obrigatória"),
+
     plate: Yup.string().uppercase("Letras tem que ser maiúsculas"),
+
+    plate: Yup.string(),
+
     brand: Yup.string(),
     model: Yup.string(),
     color: Yup.string().uppercase("Letras tem que ser maiúsculas"),
